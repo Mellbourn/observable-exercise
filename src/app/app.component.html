@@ -18,6 +18,7 @@
 	<mdl-layout-content class="demo-content">
 		<button mdl-ripple (click)="click($event)" id="button" mdl-button mdl-button-type="raised" mdl-colored="accent">doubleclickme</button>
 		<p>
+      <mdl-icon mdl-badge="{{events.length}}" mdl-badge-overlap>account_box</mdl-icon>
 			<mdl-checkbox [ngModel]="isShown"></mdl-checkbox>
 		</p>
 		<p>
