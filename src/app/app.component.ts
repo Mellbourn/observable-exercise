@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs/Rx';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'obs works!';
+  title = 'Observable experiments';
   button: HTMLButtonElement;
   isShown: boolean;
   subjectContents: string[] = [];
