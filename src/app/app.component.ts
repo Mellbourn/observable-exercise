@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   button: HTMLButtonElement;
   isShown: boolean;
   subjectContents: string[] = [];
+  events: string[] = [];
 
   ngOnInit() {
     this.button = <HTMLButtonElement>document.getElementById('button');
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
       .filter((length: number) => { return length > 1; })
       .subscribe(() => {
         this.isShown = !this.isShown;
+        this.events.push(null);
       });
 
 

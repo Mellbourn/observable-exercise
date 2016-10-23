@@ -19,8 +19,19 @@
 		<h1>
 			{{title}}
 		</h1>
-		<button mdl-ripple (click)="click($event)" id="button" mdl-button mdl-button-type="raised" mdl-colored="accent" >doubleclickme</button>
-		<div id="square" [hidden]="!isShown"></div>
-		<div *ngFor="let content of subjectContents">{{content}}</div>
+		<button mdl-ripple (click)="click($event)" id="button" mdl-button mdl-button-type="raised" mdl-colored="accent">doubleclickme</button>
+		<p>
+			<mdl-checkbox [ngModel]="isShown"></mdl-checkbox>
+		</p>
+		<p>
+			<span class="mdl-chip" *ngFor="let event of events">
+      <span class="mdl-chip__text">event</span>
+			</span>
+		</p>
+		<p>
+			<span class="mdl-chip" *ngFor="let content of subjectContents">
+      <span class="mdl-chip__text">{{content}}</span>
+			</span>
+		</p>
 	</mdl-layout-content>
 </mdl-layout>
