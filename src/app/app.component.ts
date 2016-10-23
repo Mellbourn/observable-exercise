@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'obs-root',
@@ -10,9 +10,10 @@ export class AppComponent implements OnInit {
   title = 'obs works!';
   button: HTMLButtonElement;
   isShown: boolean;
+  subjectContents: string[] = [];
 
   ngOnInit() {
-    this.button = <HTMLButtonElement>document.getElementById('button')
+    this.button = <HTMLButtonElement>document.getElementById('button');
 
     const clickStream = Observable.fromEvent(this.button, 'click');
 
@@ -26,8 +27,22 @@ export class AppComponent implements OnInit {
       .filter((length: number) => { return length > 1; })
       .subscribe(() => {
         this.isShown = !this.isShown;
-       });
+      });
 
+
+    const subject = new Subject();
+    subject.subscribe((x: any) => {
+      this.subjectContents.push('next:' + x);
+    },
+    (x: any) => {
+      this.subjectContents.push('error:' + x);
+    },
+    () => {
+      this.subjectContents.push('completed');
+    });
+
+    subject.next('hello');
+    subject.complete();
 
     // sampledStream.subscribe((buffer: any[]) => {
     //   if (buffer.length > 0) {

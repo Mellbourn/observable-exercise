@@ -3,3 +3,4 @@
 </h1>
 <button (click)="click($event)"  id="button">clickme</button>
 <div id="square" [hidden]="!isShown"></div>
+<div *ngFor="let content of subjectContents">{{content}}</div>
