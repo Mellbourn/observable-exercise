@@ -32,8 +32,8 @@ export class AppComponent implements OnInit {
       });
 
 
-    const subject = new Subject();
-    subject.subscribe((x: any) => {
+    const subject = new Subject<string>();
+    subject.subscribe((x: string) => {
       this.subjectContents.push('next:' + x);
     },
     (x: any) => {
@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
     });
 
     subject.next('hello');
+    subject.next('world');
     subject.complete();
 
     // sampledStream.subscribe((buffer: any[]) => {
