@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   isShown: boolean;
   subjectContents: string[] = [];
   events: string[] = [];
+  numberOfDoubleClicks: number = 0;
 
   ngOnInit() {
     this.button = <HTMLButtonElement>document.getElementById('button');
@@ -22,30 +23,33 @@ export class AppComponent implements OnInit {
       console.log('clicked');
     });
 
-    clickStream
+    const doubleClickStream = clickStream
       .buffer(clickStream.throttleTime(250))
       .map((buffer: any[]) => { return buffer.length; })
-      .filter((length: number) => { return length > 1; })
-      .subscribe(() => {
-        this.isShown = !this.isShown;
-        this.events.push(null);
-      });
+      .filter((length: number) => { return length > 1; });
 
-      // clickStream.scan((acc: void, value, index) => {
-      //   acc()
-      // })
+    doubleClickStream.subscribe(() => {
+      this.isShown = !this.isShown;
+      this.events.push(null);
+    });
+
+    doubleClickStream.scan((accumulated, numberOfClicks, index) => {
+      return accumulated + numberOfClicks / 2;
+    }, 0).subscribe((total: number) => {
+      this.numberOfDoubleClicks = total;
+    });
 
 
     const subject = new Subject<string>();
     subject.subscribe((x: string) => {
       this.subjectContents.push('next:' + x);
     },
-    (x: any) => {
-      this.subjectContents.push('error:' + x);
-    },
-    () => {
-      this.subjectContents.push('completed');
-    });
+      (x: any) => {
+        this.subjectContents.push('error:' + x);
+      },
+      () => {
+        this.subjectContents.push('completed');
+      });
 
     subject.next('hello');
     subject.next('world');
