@@ -31,6 +31,10 @@ export class AppComponent implements OnInit {
         this.events.push(null);
       });
 
+      // clickStream.scan((acc: void, value, index) => {
+      //   acc()
+      // })
+
 
     const subject = new Subject<string>();
     subject.subscribe((x: string) => {
